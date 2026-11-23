@@ -15,6 +15,13 @@ b-tree guarda as keys ordenadas campo a campo (terminal, depois clase e por ai v
 
 Hipotese: o near funcionaria direto com as cordenadas do google
 O que aconteceu: sem indice deu erro (unable to find index for $geoNear query), depois do indice, com as coordenadas na ordem do Maps (lat, lon), voltou 0 resultados, sem erro.
-Resolucao: criei posicao: "2dsphere" e inverti para long, lat = [-48.5100, -25.4680]. Voltaram os 10 mais perto ordenados por distancia
+Resolucao: criei posicao: "2dsphere" e inverti para long, lat = [-48.5100, -25.4680]. Voltaram os 10 mais perto ordenados por distanciagit
+
+## A3 
+
+Hipotese:  monitor do TTL ainda não tinha rodado
+O que aconteceu: depois de criar o indice TTL nada foi apagado. O $type mostrou que o registrado_em era string em todos os 100k 
+Resolucao: o TTL só dropa campos do tipo date, recriei o indice com expireafterseconds para 30 dias e testei inserindo alertas com newdate, o antigo sumiu em uns 30sec, o codigo deve gravar newdate() e não texto
+
 
 
