@@ -1,0 +1,34 @@
+
+
+**Aluno:** Gabriel Gonzales
+**RA:** 240087482
+
+## Parâmetros 
+
+MONGO
+
+
+CLASSE_ALVO = Granel 
+
+
+TERMINAL_ALVO= T2 
+
+
+DATA_CORTE =2026-06-01 
+
+
+INCIDENTE =-25.4680, -48.5100 
+
+NEO4J
+
+
+EMPRESA_SANCIONADA= E2 
+
+
+BASE_DA_PILHA =K8 
+
+
+
+Código de Autenticidade:LP-240087482-19965-35351
+
+
