@@ -31,6 +31,19 @@ Resolucao: o id sai por padrão e não está no indice, então o banco precisa a
 Por que mudou? a Querie é coberta quando todos os campos estão dentro do indice, o indice tem os campos do filtro (terminal e tipo) e só uma saida, logo, o mongo monta o retorno só com as chaves da btree e não abre o doc, logo, não examina
 o id sempre é incluido, a n ser que coloque id 0, quando tira o id, a saida passa a pedir pelo id, que naõ ta no indice, logo, o banco precisa rodar um fetch a cada doc pra pegar o id, ai o totaldocs vai de 0 para o mesma quantidade de retornados 
 
+## B1 
+
+Hipotese: agrupar por terminal e pegar os 3 maiores ja daria certo.
+O que aconteceu: sem indice, o match lia todos os 400k de doc
+Resolucao: criei o indice classe:1 ts:1 e deixe o match primeiro, depois o group, dps sort, dps limit e dps project, voltaram 49k de docs no group, sendo t2, t5 e t4 o top3
+
+
+
+
+
+
+
+
 
 
 
