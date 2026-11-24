@@ -65,9 +65,27 @@ Hipotese: sair da E2 seguindo a seta para fora, até 3 níveis.
 O que aconteceu: confirmei que ninguém é sócio da E2 (0 arestas entrando), então a direção de entrada não traria nada.
 Resolucao: usei (E2)-[:SOCIA_DE*1..3]->(x), depois cruzei conteiner no mesmo terminal e na mesma data com distinct, sairam 5 linhas (Empresa 8 e Empresa 13).
 
+## C3
 
+(i) — 
+Hipótese: o CREATE ligaria as empresas E1 e E2 que já existiam.
+O que aconteceu: foram criadas 2 empresas novas (30 → 32), duplicadas e sem nome.
+Resolucao: apaguei as duplicadas (WHERE e.nome IS NULL DETACH DELETE e) criei uma constraint de cnpj único e usei MATCH + MERGE na relação.
 
+(ii) — Caminho sem limite
+Hipótese: listaria as empresas ligadas à sancionada.
+O que aconteceu: ficou lento, com nomes repetidos. Os caminhos triplicam a cada nível (3, 16, 66, 251...).
+Resolucao: coloquei direção e limite: -[:SOCIA_DE*1..3]->, mais WHERE x <> s e RETURN DISTINCT. Saíram 10 empresas.
 
+(iii) — Pilha invertida
+Hipótese: listaria os contêineres em cima da K8.
+O que aconteceu: voltou 0 linhas.
+Resolucao: a aresta vai de cima para baixo, então inverti a seta: (base)<-[:EMPILHADO_SOBRE*1..]-(x). Resultado: K9, K10, K11.
+
+(iv) — Contagem errada
+Hipótese: o count(k) daria o número de contêineres perigosos por terminal.
+O que aconteceu: os números vieram inflados (T2 = 12, T4 = 8), porque cada passagem virava uma linha.
+Resolucao: troquei por count(DISTINCT k). Resultado: T1 9, T2 9, T3 8, T4 6, T5 7.
 
 
 
