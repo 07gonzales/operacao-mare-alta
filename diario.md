@@ -23,5 +23,15 @@ Hipotese:  monitor do TTL ainda não tinha rodado
 O que aconteceu: depois de criar o indice TTL nada foi apagado. O $type mostrou que o registrado_em era string em todos os 100k 
 Resolucao: o TTL só dropa campos do tipo date, recriei o indice com expireafterseconds para 30 dias e testei inserindo alertas com newdate, o antigo sumiu em uns 30sec, o codigo deve gravar newdate() e não texto
 
+## A4 
+
+Hipotese: com índice, nenhum documento seria lido.
+O que aconteceu: com o índice {tipo, terminal, container} e _id: 0 deu PROJECTION_COVERED e 0 docs lidos, sem  id: 0 voltou o fetch com 16k de docs lidos.
+Resolucao: o id sai por padrão e não está no indice, então o banco precisa abrir cada doc, pra cobertura total, a projecao precisa de id =0 
+Por que mudou? a Querie é coberta quando todos os campos estão dentro do indice, o indice tem os campos do filtro (terminal e tipo) e só uma saida, logo, o mongo monta o retorno só com as chaves da btree e não abre o doc, logo, não examina
+o id sempre é incluido, a n ser que coloque id 0, quando tira o id, a saida passa a pedir pelo id, que naõ ta no indice, logo, o banco precisa rodar um fetch a cada doc pra pegar o id, ai o totaldocs vai de 0 para o mesma quantidade de retornados 
+
+
+
 
 
