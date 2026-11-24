@@ -38,6 +38,20 @@ O que aconteceu: sem indice, o match lia todos os 400k de doc
 Resolucao: criei o indice classe:1 ts:1 e deixe o match primeiro, depois o group, dps sort, dps limit e dps project, voltaram 49k de docs no group, sendo t2, t5 e t4 o top3
 
 
+## B2 
+
+Hipotese: o pipeline estava certo, mas lento
+O que aconteceu: a saída veio vazia , com collscan de 400k docs.
+Resolucao: tinham diversos defeitos:
+
+-projetct inicial apaga o peso
+-peso_kg estava sem $
+-limit vinha antes do sort
+-match vinha depois do limit
+-match no final impedia o indice 
+-group juntava todas as classes a toa
+
+corrigi todos esses erros: t1,t3,t5 com ixcan em 100k docs
 
 
 
