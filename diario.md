@@ -59,6 +59,12 @@ Hipotese: modelas as tabelas com o cnpj ao centro
 O que aconteceu: seria fk, proibido
 Resolucao: modelei tudo como nós e arestas com direção e propriedades = `Empresa-[:SOCIA_DE {pct}]->Empresa`, `Container-[:PERTENCE_A]->Empresa`, `Container-[:PASSOU_POR {data}]->Terminal`, `Container-[:EMPILHADO_SOBRE]->Container`, subgrafo real: E2 - E14 (88%) e E2 - E28 (26%).
 
+## C2
+
+Hipotese: sair da E2 seguindo a seta para fora, até 3 níveis.
+O que aconteceu: confirmei que ninguém é sócio da E2 (0 arestas entrando), então a direção de entrada não traria nada.
+Resolucao: usei (E2)-[:SOCIA_DE*1..3]->(x), depois cruzei conteiner no mesmo terminal e na mesma data com distinct, sairam 5 linhas (Empresa 8 e Empresa 13).
+
 
 
 
