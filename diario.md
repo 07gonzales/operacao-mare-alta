@@ -53,6 +53,11 @@ Resolucao: tinham diversos defeitos:
 
 corrigi todos esses erros: t1,t3,t5 com ixcan em 100k docs
 
+## MODELAGEM C1
+
+Hipotese: modelas as tabelas com o cnpj ao centro
+O que aconteceu: seria fk, proibido
+Resolucao: modelei tudo como nós e arestas com direção e propriedades = `Empresa-[:SOCIA_DE {pct}]->Empresa`, `Container-[:PERTENCE_A]->Empresa`, `Container-[:PASSOU_POR {data}]->Terminal`, `Container-[:EMPILHADO_SOBRE]->Container`, subgrafo real: E2 - E14 (88%) e E2 - E28 (26%).
 
 
 
